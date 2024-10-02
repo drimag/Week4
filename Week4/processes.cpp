@@ -14,16 +14,17 @@ void printProcess() {
         {1341, "C+G", "Process5", "N/A"}
     };
 
-    std::pair<int, int> cursorPos = getCurrentCursorPosition();
-    std::cout << cursorPos.first;
+    std::pair<int, int> cursorPosBefore = getCurrentCursorPosition();
+    int row = cursorPosBefore.first;
     
     for (int i = 0; i < 5; i++) {
-
-        setCursorPosition(0, cursorPos.first + i); std::cout << "|    0   N/A  N/A                                                                         |";               
-        setCursorPosition(23, cursorPos.first + i);  std::cout << processes[i].pid;
-        setCursorPosition(31, cursorPos.first + i); std::cout << processes[i].type;
-        setCursorPosition(37, cursorPos.first + i); std::cout << truncateWithEllipsis(processes[i].name, 41);
-        setCursorPosition(81, cursorPos.first + i); std::cout << processes[i].gpuMemory;
-
+        setCursorPosition(0, row + i); std::cout << "|    0   N/A  N/A                                                                         |";
+        setCursorPosition(23, row + i); std::cout << processes[i].pid;
+        setCursorPosition(31, row + i); std::cout << processes[i].type;
+        setCursorPosition(37, row + i); std::cout << truncateWithEllipsis(processes[i].name, 41);
+        setCursorPosition(81, row + i); std::cout << processes[i].gpuMemory;
     }
+    std::pair<int, int> cursorPosAfter = getCurrentCursorPosition();
+    setCursorPosition(0, cursorPosAfter.first + 1);
+
 }
