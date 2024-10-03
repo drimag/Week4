@@ -2,12 +2,14 @@
 
 #include <string>
 #include <atomic>
+#include <vector>
 
 class ConsoleManager {
 public:
     static ConsoleManager* getInstance();
 
     void process();
+    void displayProcess();
     void drawConsole();
     bool isRunning();
     void stop();
@@ -20,7 +22,7 @@ private:
     static ConsoleManager* instance;
 
     std::string text;
-    std::string pastCommands;
+    std::vector<std::string> pastCommands;
     std::string currentCommand;
     int posX, posY;
     int width, height;

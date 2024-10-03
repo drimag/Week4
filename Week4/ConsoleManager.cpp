@@ -20,10 +20,25 @@ ConsoleManager* ConsoleManager::getInstance() {
     return instance;
 }
 
-ConsoleManager::ConsoleManager() : text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true), running(true) {}
+ConsoleManager::ConsoleManager() : text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true), running(true), pastCommands({ "command1", "command2", "command3" }) {}
 
 void ConsoleManager::process() {
-    setCursorPosition(posX, posY);
+
+}
+
+void ConsoleManager::displayProcess() {
+
+    setCursorPosition(0, 20);
+
+    std::cout << "Enter a command for MARQUEE_CONSOLE: ";
+    std::cout << currentCommand << std::endl;
+
+    for (const auto& command : pastCommands) {
+        std::cout << "Command processed in MARQUEE_CONSOLE: ";
+        std::cout << command << std::endl;
+    }
+
+    setCursorPosition(37, 20);
 }
 
 void ConsoleManager::drawConsole() {
@@ -32,6 +47,7 @@ void ConsoleManager::drawConsole() {
     updateCursorPosition();
     setCursorPosition(posX, posY);
     std::cout << text;
+    displayProcess();
 }
 
 bool ConsoleManager::isRunning() {

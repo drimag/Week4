@@ -13,9 +13,6 @@ static void inputHandler() {
         if (input == "exit") {
             running = false;
         }
-        else if (input == "deez nuts") {
-            running = false;
-        }
     }
 
     while (running);
@@ -28,7 +25,7 @@ static void marquee() {
         ConsoleManager::getInstance()->process();
         ConsoleManager::getInstance()->drawConsole();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
     }
 }
 
