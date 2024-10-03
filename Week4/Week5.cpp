@@ -39,21 +39,21 @@ static void inputHandler(ConsoleManager* consoleManager, int delay) {
                 consoleManager->setCurrentCommand(currentCommand);
             }
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(delay));
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
 static void marquee(ConsoleManager* consoleManager, int delay) {
     while (running) {
         consoleManager->drawConsole();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(delay));  
     }
 }
 
 int main() {
-    const int pollingRate = 1000 / 1000; // polling rate
-    const int refreshRate = 1000 / 60; // fps
+    const int pollingRate = 1000 / 1000; // polling rate per second
+    const int refreshRate = 1000 / 144; // fps
 
     ConsoleManager* consoleManager = ConsoleManager::getInstance();
 
