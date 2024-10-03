@@ -21,36 +21,10 @@ ConsoleManager* ConsoleManager::getInstance() {
     return instance;
 }
 
-ConsoleManager::ConsoleManager() :  text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true) {}
+ConsoleManager::ConsoleManager() :  text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true){}
 
 void ConsoleManager::process() {
-    char ch;
-
-    if (_kbhit()) {
-        ch = _getch();
-        
-        if (ch == '\r') {  // Enter key 
-            if (currentCommand == "exit") {
-                //running = false;
-            }
-            else {
-                pastCommands.push_back(currentCommand);
-                currentCommand.clear();
-            }
-            
-        }
-
-        else if (ch == '\b') {  // Backspace
-            if (!currentCommand.empty()) {
-                currentCommand.pop_back();
-            }
-        }
-
-        else {
-            currentCommand += ch;
-        }
-    }
-
+ 
 }
 
 void ConsoleManager::displayProcess() {
@@ -82,6 +56,11 @@ void ConsoleManager::drawConsole() {
 
 void ConsoleManager::setCurrentCommand(const std::string& newCommand) {
     currentCommand = newCommand;
+}
+
+void ConsoleManager::addCommand(const std::string& newCommand) {
+    pastCommands.push_back(newCommand);
+    currentCommand.clear();
 }
 
 void ConsoleManager::updateCursorPosition() {

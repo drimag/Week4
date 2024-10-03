@@ -4,52 +4,64 @@
 #include <conio.h>
 
 #include "ConsoleManager.h"
+#include "util.h"
 
 std::atomic<bool> running(true);
+std::string currentCommand;
 
-static void inputHandler() {
-    std::string input;
+static void inputHandler(ConsoleManager* consoleManager) {
+    char ch;
+
     while (running) {
-        //if (_kbhit()) {  // If a key was pressed
-        //    char ch = _getch();  // Get the key that was pressed
-        //    std::cout << "You pressed: " << ch << std::endl;
+        if (_kbhit()) {
+            ch = _getch();
 
-        //    if (ch == 'q') {  // Quit if 'q' is pressed
-        //        running = false;
-        //    }
-        //}
+            if (ch == '\r') {  // Enter key 
+                if (currentCommand == "exit") {
+                    clearScreen();
+                    running = false;
+                }
+                else {
+                    consoleManager->addCommand(currentCommand);
+                    currentCommand.clear();
+                }
+            }
 
-        /*std::getline(std::cin, input);
-        if (input == "exit") {
-            running = false;
-        }*/
-        
+            else if (ch == '\b') {  // Backspace
+                if (!currentCommand.empty()) {
+                    currentCommand.pop_back();
+                    consoleManager->setCurrentCommand(currentCommand);
+                }
+            }
+
+            else {
+                currentCommand += ch;
+                consoleManager->setCurrentCommand(currentCommand);
+            }
+        }
     }
-
-
-    while (running);
-
-
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
-static void marquee() {
+static void marquee(ConsoleManager* consoleManager) {
     while (running) {
-        ConsoleManager::getInstance()->process();
-        ConsoleManager::getInstance()->drawConsole();
+        consoleManager->drawConsole();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
     }
 }
 
 int main() {
     //input handling thread
-    //std::thread inputThread(inputHandler);
 
-    // Start the marquee worker in the main thread
-    marquee();
+    ConsoleManager* consoleManager = ConsoleManager::getInstance();
+
+    std::thread inputThread(inputHandler, consoleManager);
+    std::thread displayThread(marquee, consoleManager);
 
     // Wait for the input thread to finish
-    //inputThread.join();
+    inputThread.join();
+    displayThread.join();
 
     return 0;
 }

@@ -12,6 +12,7 @@ public:
     void displayProcess();
     void drawConsole();
     void setCurrentCommand(const std::string& newCommand);
+    void addCommand(const std::string& newCommand);
     void updateCursorPosition();
 
 private:
