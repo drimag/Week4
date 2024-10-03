@@ -9,7 +9,7 @@
 std::atomic<bool> running(true);
 std::string currentCommand;
 
-static void inputHandler(ConsoleManager* consoleManager) {
+static void inputHandler(ConsoleManager* consoleManager, int delay) {
     char ch;
 
     while (running) {
@@ -43,7 +43,7 @@ static void inputHandler(ConsoleManager* consoleManager) {
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
-static void marquee(ConsoleManager* consoleManager) {
+static void marquee(ConsoleManager* consoleManager, int delay) {
     while (running) {
         consoleManager->drawConsole();
 
@@ -52,14 +52,14 @@ static void marquee(ConsoleManager* consoleManager) {
 }
 
 int main() {
-    //input handling thread
+    const int pollingRate = 1000 / 1; // polling rate
+    const int refreshRate = 1000 / 144; // fps
 
     ConsoleManager* consoleManager = ConsoleManager::getInstance();
 
-    std::thread inputThread(inputHandler, consoleManager);
-    std::thread displayThread(marquee, consoleManager);
+    std::thread inputThread(inputHandler, consoleManager, pollingRate);
+    std::thread displayThread(marquee, consoleManager, refreshRate);
 
-    // Wait for the input thread to finish
     inputThread.join();
     displayThread.join();
 
