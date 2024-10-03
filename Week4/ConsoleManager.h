@@ -11,10 +11,7 @@ public:
     void process();
     void displayProcess();
     void drawConsole();
-    bool isRunning();
-    void stop();
-    void setText(const std::string& newText);
-    void setConsoleSize(int w, int h);
+    void setCurrentCommand(const std::string& newCommand);
     void updateCursorPosition();
 
 private:
@@ -27,5 +24,4 @@ private:
     int posX, posY;
     int width, height;
     bool directionX, directionY;
-    std::atomic<bool> running;
 };

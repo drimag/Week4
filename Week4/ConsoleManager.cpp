@@ -5,6 +5,7 @@
 #include <atomic>
 #include <vector>
 #include <Windows.h>
+#include <conio.h>
 
 #include "graphics.h"
 #include "util.h"
@@ -20,9 +21,35 @@ ConsoleManager* ConsoleManager::getInstance() {
     return instance;
 }
 
-ConsoleManager::ConsoleManager() : text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true), running(true), pastCommands({ "command1", "command2", "command3" }) {}
+ConsoleManager::ConsoleManager() :  text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true) {}
 
 void ConsoleManager::process() {
+    char ch;
+
+    if (_kbhit()) {
+        ch = _getch();
+        
+        if (ch == '\r') {  // Enter key 
+            if (currentCommand == "exit") {
+                //running = false;
+            }
+            else {
+                pastCommands.push_back(currentCommand);
+                currentCommand.clear();
+            }
+            
+        }
+
+        else if (ch == '\b') {  // Backspace
+            if (!currentCommand.empty()) {
+                currentCommand.pop_back();
+            }
+        }
+
+        else {
+            currentCommand += ch;
+        }
+    }
 
 }
 
@@ -39,6 +66,8 @@ void ConsoleManager::displayProcess() {
     }
 
     setCursorPosition(37, 20);
+
+    
 }
 
 void ConsoleManager::drawConsole() {
@@ -48,23 +77,11 @@ void ConsoleManager::drawConsole() {
     setCursorPosition(posX, posY);
     std::cout << text;
     displayProcess();
+    process();
 }
 
-bool ConsoleManager::isRunning() {
-    return running.load();
-}
-
-void ConsoleManager::stop() {
-    running.store(false);
-}
-
-void ConsoleManager::setText(const std::string& newText) {
-    text = newText;
-}
-
-void ConsoleManager::setConsoleSize(int w, int h) {
-    width = w;
-    height = h;
+void ConsoleManager::setCurrentCommand(const std::string& newCommand) {
+    currentCommand = newCommand;
 }
 
 void ConsoleManager::updateCursorPosition() {
