@@ -20,35 +20,16 @@ ConsoleManager* ConsoleManager::getInstance() {
     return instance;
 }
 
-ConsoleManager::ConsoleManager() : posX(0), posY(3), width(80), height(25), directionX(true), directionY(true), running(true) {}
+ConsoleManager::ConsoleManager() : text("This is a Marquee"), posX(0), posY(3), width(80), height(20), directionX(true), directionY(true), running(true) {}
 
 void ConsoleManager::process() {
-    if (directionX) {
-        posX++;
-    }
-    else {
-        posX--;
-    }
-
-    if (posX <= 0 || posX >= width - text.size()) {
-        directionX = !directionX;
-    }
-
-    if (directionY) {
-        posY++;
-    }
-    else {
-        posY--;
-    }
-
-    if (posY <= 0 || posY >= height - 1) {
-        directionY = !directionY;
-    }
+    setCursorPosition(posX, posY);
 }
 
 void ConsoleManager::drawConsole() {
     clearScreen();
     printMarqueeHeader();
+    updateCursorPosition();
     setCursorPosition(posX, posY);
     std::cout << text;
 }
@@ -68,4 +49,28 @@ void ConsoleManager::setText(const std::string& newText) {
 void ConsoleManager::setConsoleSize(int w, int h) {
     width = w;
     height = h;
+}
+
+void ConsoleManager::updateCursorPosition() {
+    if (directionX) {
+        posX++;
+    }
+    else {
+        posX--;
+    }
+
+    if (posX <= 0 || posX >= width - text.size()) {
+        directionX = !directionX;
+    }
+
+    if (directionY) {
+        posY++;
+    }
+    else {
+        posY--;
+    }
+
+    if (posY <= 3 || posY >= height - 1) {
+        directionY = !directionY;
+    }
 }

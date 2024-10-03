@@ -39,14 +39,6 @@ void printCurrentDateTime() {
     std::cout << buffer << std::endl;
 }
 
-std::string truncateWithEllipsis(const std::string& str, size_t maxLength) {
-    if (str.length() > maxLength) {
-        size_t numToKeep = maxLength - 3;
-        return "..." + str.substr(str.length() - numToKeep);
-    }
-    return str; 
-}
-
 void clearScreen() {
 #ifdef _WIN32
     system("cls");

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 void printHeader() {
 	std::cout << "+-----------------------------------------------------------------------------------------+" << std::endl;
 	std::cout << "| NVIDIA-SMI 555.85                 Driver Version: 555.85         CUDA Version: 12.5     |" << std::endl;

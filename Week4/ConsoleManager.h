@@ -13,6 +13,7 @@ public:
     void stop();
     void setText(const std::string& newText);
     void setConsoleSize(int w, int h);
+    void updateCursorPosition();
 
 private:
     ConsoleManager();
