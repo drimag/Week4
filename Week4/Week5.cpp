@@ -52,8 +52,8 @@ static void marquee(ConsoleManager* consoleManager, int delay) {
 }
 
 int main() {
-    const int pollingRate = 1000 / 1; // polling rate
-    const int refreshRate = 1000 / 144; // fps
+    const int pollingRate = 1000 / 1000; // polling rate
+    const int refreshRate = 1000 / 60; // fps
 
     ConsoleManager* consoleManager = ConsoleManager::getInstance();
 
