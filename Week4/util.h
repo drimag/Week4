@@ -8,3 +8,5 @@ std::pair<int, int> getCurrentCursorPosition();
 void printCurrentDateTime();
 
 std::string truncateWithEllipsis(const std::string& str, size_t maxLength);
+
+void clearScreen();

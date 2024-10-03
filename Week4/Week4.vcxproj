@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="processes.cpp" />
     <ClCompile Include="util.cpp" />
-    <ClCompile Include="Week4.cpp" />
+    <ClCompile Include="Week5.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleManager.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="processes.h" />
     <ClInclude Include="util.h" />

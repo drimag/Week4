@@ -46,3 +46,11 @@ std::string truncateWithEllipsis(const std::string& str, size_t maxLength) {
     }
     return str; 
 }
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}

@@ -22,3 +22,9 @@ void printProcessHeader() {
 	std::cout << "|        ID   ID                                                               Usage      |" << std::endl;
 	std::cout << "|=========================================================================================|" << std::endl;
 }
+
+void printMarqueeHeader() {
+	std::cout << "*************************************" << std::endl;
+	std::cout << "* Displaying a Marquee Console *" << std::endl;
+	std::cout << "*************************************" << std::endl;
+}
